@@ -34,12 +34,12 @@ public class FirstServlet extends HttpServlet {
 			while (rs.next()) {
 				System.out.println(rs.getString("member_id"));
 				System.out.println(rs.getString("member_password"));
+				System.out.println(rs.getString("member_name"));
 				System.out.println(rs.getString("member_tel"));
 				System.out.println(rs.getString("member_author"));
 				System.out.println("---------------");
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
