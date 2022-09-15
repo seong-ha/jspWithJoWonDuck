@@ -53,24 +53,19 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO memberSelect(MemberVO vo) {
 		// 한명의 멤버를 조회한다.
 		String sql = "SELECT * FROM MEMBER WHERE MEMBER_ID = ?";
-
+		MemberVO memberVO = null;
 		try {
 			pstmt = dao.conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getMemberId());
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				vo.setMemberId(rs.getString("member_id"));
-				vo.setMemberPassword(rs.getString("member_password"));
-				vo.setMemberName(rs.getString("member_name"));
-				vo.setMemberTel(rs.getString("member_tel"));
-				vo.setMemberAuthor(rs.getString("member_author"));
-
-				System.out.println(rs.getString("member_id"));
-				System.out.println(rs.getString("member_password"));
-				System.out.println(rs.getString("member_name"));
-				System.out.println(rs.getString("member_tel"));
-				System.out.println(rs.getString("member_author"));
+				memberVO = new MemberVO();
+				memberVO.setMemberId(rs.getString("member_id"));
+				memberVO.setMemberPassword(rs.getString("member_password"));
+				memberVO.setMemberName(rs.getString("member_name"));
+				memberVO.setMemberTel(rs.getString("member_tel"));
+				memberVO.setMemberAuthor(rs.getString("member_author"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -80,7 +75,7 @@ public class MemberServiceImpl implements MemberService {
 			close();
 		}
 		
-		return vo;
+		return memberVO;
 	}
 
 	@Override
