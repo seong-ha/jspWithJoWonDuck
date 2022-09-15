@@ -150,6 +150,7 @@
 			
 			let id = document.getElementById('memberId').value;
 			
+			/*
 			const xhttp = new XMLHttpRequest();
 		    xhttp.onload = function() {
 		    	if (this.readyState == 4 && this.status == 200) {
@@ -167,7 +168,29 @@
 			}
 		    xhttp.open("GET", "ajaxMemberIdCheck.do?id=" + id);
 		    xhttp.send();
-			  
+		    */
+		    
+		    let xhttp = new XMLHttpRequest();
+		    xhttp.open('post', 'ajaxMemberIdCheck.do');
+		    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		    xhttp.send('id=' + id);
+		    xhttp.onload = function (e) {
+		    	console.log('this: ' + this);
+		    	console.log('e: ' + e);
+		    	console.log(xhttp);
+		    	e.
+                let result = xhttp.responseText;
+                console.log(result);
+                if (`${check}` == '1') {
+						alert("사용 가능한 아이디 입니다.");
+						document.getElementById('btn').value = 'Yes';
+						document.getElementById('memberPassword').focus();
+		    	} else {
+		    	    	alert("사용할 수 없는 아이디 입니다.");
+		    	    	document.getElementById('memberId').value = "";
+		    	    	document.getElementById('memberId').focus();
+		    	}
+            }
 		}
 	</script>
 </body>

@@ -65,6 +65,12 @@ public class MemberServiceImpl implements MemberService {
 				vo.setMemberName(rs.getString("member_name"));
 				vo.setMemberTel(rs.getString("member_tel"));
 				vo.setMemberAuthor(rs.getString("member_author"));
+
+				System.out.println(rs.getString("member_id"));
+				System.out.println(rs.getString("member_password"));
+				System.out.println(rs.getString("member_name"));
+				System.out.println(rs.getString("member_tel"));
+				System.out.println(rs.getString("member_author"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

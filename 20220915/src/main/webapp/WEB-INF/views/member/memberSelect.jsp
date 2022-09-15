@@ -10,6 +10,6 @@
 	아이디: ${member.memberId}<br>
 	이름: ${member.memberName}<br>
 	전화번호: ${member.memberTel}<br>
-	권한: ${member.author}
+	권한: ${member.memberAuthor}
 </body>
 </html>

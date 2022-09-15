@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import co.micol.prj.member.command.AjaxMemberIdCheck;
 import co.micol.prj.member.command.MemberInsert;
 import co.micol.prj.member.command.MemberJoinForm;
 import co.micol.prj.member.command.MemberSelect;
@@ -36,6 +37,7 @@ public class FrontController extends HttpServlet {
 		map.put("/memberSelect.do", new MemberSelect());  // 멤버 상세 정보
 		map.put("/memberJoinForm.do", new MemberJoinForm());  // 멤버 입력 화면
 		map.put("/memberInsert.do", new MemberInsert());  // 멤버 입력 처리
+		map.put("/ajaxMemberIdCheck.do", new AjaxMemberIdCheck());  // 멤버 아이디 중복 확인
 	}
 
 	// 요청을 분석, 처리하고 결과를 돌려주는 곳
@@ -45,6 +47,10 @@ public class FrontController extends HttpServlet {
 		String contextPath = request.getContextPath();  // contextPath 가져오기
 		// 처리할 요청명 구함. "contextPath/실제요청"이니까 contextPath길이 이후부터 가져오는거
 		String page = uri.substring(contextPath.length());
+		System.out.println("url: " + request.getRequestURL());
+		System.out.println("uri: " + uri);
+		System.out.println("contextPath: " + contextPath);
+		System.out.println("page: " + page);
 		
 		Command command = map.get(page);  // 처리할 Command를 찾음
 		String viewPage = command.exec(request, response); // Command를 실행하고 돌려줄 페이지를 받음
@@ -54,6 +60,7 @@ public class FrontController extends HttpServlet {
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);
+			System.out.println(request.getAttribute("check"));
 		} else {
 			response.sendRedirect(viewPage);
 		}
