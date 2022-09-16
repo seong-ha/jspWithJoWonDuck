@@ -1,11 +1,8 @@
 package co.micol.prj.member.service;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-// @Data
-@Getter
-@Setter
+@Data
 public class MemberVO {
 	private String memberId;
 	private String memberPassword;

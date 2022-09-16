@@ -1,6 +1,5 @@
 package co.micol.prj.member.command;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,42 +7,34 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.micol.prj.member.common.Command;
 import co.micol.prj.member.service.MemberService;
-import co.micol.prj.member.service.MemberVO;
 import co.micol.prj.member.serviceImpl.MemberServiceImpl;
 
 public class AjaxMemberIdCheck implements Command {
 
 	@Override
 	public String exec(HttpServletRequest request, HttpServletResponse response) {
-		// 멤버 아이디 중복 확인
-		
+		// ajax로 멤버 아이디 중복 확인하는 부분
+		// 리턴값이 true이면 사용가능한 아이디
 		try {
 			request.setCharacterEncoding("utf-8");
 			response.setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		MemberService dao = new MemberServiceImpl();
-		MemberVO vo = new MemberVO();
-		vo.setMemberId(request.getParameter("id"));
-		MemberVO memberVO = dao.memberSelect(vo);  // 검색 결과 얻기
+		String id = request.getParameter("id");
+		boolean result = dao.isMemberIdCheck(id); // 검색 결과 얻기
+		String str = "ajax:0"; // 페이지에 돌려줄 값을 담을 변수
 		
-		// vo의 null여부에 따라서 다른 값을 부여해서 들고 내려가고 싶은데 어디에 담아서 내려가야할지 모르겠다.
-		if (memberVO == null) {
-			try {
-				response.getWriter().write("1");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		} else {
-			try {
-				response.getWriter().write("fail");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		/*
+		vo의 null여부에 따라서 다른 값을 부여해서 들고 내려가고 싶은데 어디에 담아서 내려가야할지 모르겠다.
+		=> 교수님: return으로 해서 식별 문자열을 돌려주고, ajax에 대한 view Resolver를 FC에 따로 만들어줘야한다 이말이야
+		*/
+		if (result) {  // 0은 중복, 1은 새거
+			str = "ajax:1";
 		}
-		return "member/memberJoinForm";
+		System.out.println(str);
+		return str;
 	}
 
 }
