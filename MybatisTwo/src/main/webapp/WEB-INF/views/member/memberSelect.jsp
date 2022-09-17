@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -94,59 +94,59 @@ td {
 </head>
 </head>
 <body>
-<div align="center">
-	<div><h1>멤버 상세 정보</h1></div>
-	
-	<div>
-		<table border="1">
-			<tr>
-				<th>아이디</th>
-				<td>
-					<input type="text" id="memberId" name="memberId" value="${member.memberId}" readonly="readonly"/>
-				</td>
-			</tr>
-			
-			<tr>
-				<th>패스워드</th>
-				<td>
-					<input type="password" id="memberPassword" name="memberPassword" value="${member.memberPassword}"/>
-				</td>
-			</tr>
-			
-			<tr>
-				<th>이름</th>
-				<td>
-					<input type="text" id="memberName" name="memberName" value="${member.memberName}"/>
-				</td>
-			</tr>
-			
-			<tr>
-				<th>전화번호</th>
-				<td>
-					<input type="tel" id="memberTel" name="memberTel" value="${member.memberTel}"/>
-				</td>
-			</tr>
-			
-			<tr>
-				<th>권한</th>
-				<td>
-					<input type="text" id="memberAuthor" name="memberAuthor" value="${member.memberAuthor}"/>
-				</td>
-			</tr>
-		</table>
-	</div><br>
-	<div>
-		<form id="frm" method="post">
-			<input type="hidden" id="memberId" name="memberId"/>
-			<button type="button" onclick="actionForm('memberUpdate')">수정</button>&nbsp;&nbsp;
-			<button type="button" onclick="actionForm('memberDelete')">삭제</button>&nbsp;&nbsp;
-			<button type="button" onclick="actionForm('memberSelectList')">목록</button>
-		</form>
+	<div align="center">
+		<div>
+			<h1>멤버 상세 정보</h1>
+		</div>
+
+		<div>
+			<form id="frm" method="post">
+				<div>
+					<table border="1">
+						<tr>
+							<th>아이디</th>
+							<td><input type="text" id="memberId" name="memberId"
+								value="${member.memberId}" readonly="readonly" /></td>
+						</tr>
+
+						<tr>
+							<th>패스워드</th>
+							<td><input type="password" id="memberPassword"
+								name="memberPassword" value="${member.memberPassword}" /></td>
+						</tr>
+
+						<tr>
+							<th>이름</th>
+							<td><input type="text" id="memberName" name="memberName"
+								value="${member.memberName}" /></td>
+						</tr>
+
+						<tr>
+							<th>전화번호</th>
+							<td><input type="tel" id="memberTel" name="memberTel"
+								value="${member.memberTel}" /></td>
+						</tr>
+
+						<tr>
+							<th>권한</th>
+							<td><input type="text" id="memberAuthor" name="memberAuthor"
+								value="${member.memberAuthor}" /></td>
+						</tr>
+					</table>
+				</div>
+				<br>
+				<div>
+					<input type="hidden" id="memberId" name="memberId" />
+					<button type="button" onclick="actionForm('memberUpdate')">수정</button>&nbsp;&nbsp;
+					<button type="button" onclick="actionForm('memberDelete')">삭제</button>&nbsp;&nbsp;
+					<button type="button" onclick="actionForm('memberSelectList')">목록</button>
+				</div>
+			</form>
+		</div>
 	</div>
-</div>
-<script type="text/javascript">
-	function actionForm(str) {
-		switch (str) {
+	<script type="text/javascript">
+		function actionForm(str) {
+			switch (str) {
 			case 'memberUpdate':
 				frm.action = 'memberUpdate.do';
 				break;
@@ -155,11 +155,11 @@ td {
 				break;
 			default:
 				frm.action = 'memberSelectList.do';
-		}
+			}
 
-		frm.submit();
-	}
-</script>
+			frm.submit();
+		}
+	</script>
 
 
 </body>

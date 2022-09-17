@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import co.micol.prj.Main;
+import co.micol.prj.command.AjaxMemberIdCheck;
 import co.micol.prj.command.MemberDelete;
+import co.micol.prj.command.MemberInsert;
 import co.micol.prj.command.MemberJoinForm;
 import co.micol.prj.command.MemberSelect;
 import co.micol.prj.command.MemberUpdate;
@@ -36,6 +38,8 @@ public class FrontController extends HttpServlet {
 		map.put("/memberSelect.do", new MemberSelect()); // 멤버 한명 상세 보기 
 		map.put("/memberDelete.do", new MemberDelete()); // 멤버 삭제 하기 
 		map.put("/memberUpdate.do", new MemberUpdate()); // 멤버 정보 변경 
+		map.put("/ajaxMemberIdCheck.do", new AjaxMemberIdCheck());
+		map.put("/memberInsert.do", new MemberInsert()); // 멤버 추가
 	}
 
 	// 요청을 분석하고, 실행하고 , 결과를 돌려주는 곳
@@ -48,7 +52,7 @@ public class FrontController extends HttpServlet {
 		String uri = request.getRequestURI();
 		String contextPath = request.getContextPath();
 		String page = uri.substring(contextPath.length());
-		
+
 		// 요청 실행
 		Command command = map.get(page);
 		String viewPage = command.exec(request, response);

@@ -30,8 +30,8 @@
 	</delete>
 	
 	<select id="isIdCheck" resultType="boolean">
-		SELECT CASE WHEN COUNT(MEMBER_ID) > 0 THEN 1 ELSE 0 END AS ID
+		SELECT CASE WHEN COUNT(MEMBER_ID) > 0 THEN 0 ELSE 1 END AS ID
 		FROM MEMBER
-		WHERE MEMBER_ID = #{id};
+		WHERE MEMBER_ID = #{id}
 	</select>
 </mapper>

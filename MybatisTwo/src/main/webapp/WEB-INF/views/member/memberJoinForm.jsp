@@ -106,15 +106,13 @@ td {
 					<table border="1">
 						<tr>
 							<th>아이디</th>
-							<td width="200"><input type="text" id="memberId"
-								name="memberId" required="required">&nbsp;
-								<button type="button" id="btn" value="No" onclick="idCheck()">중복체크</button>
+							<td width="200"><input type="text" id="memberId" name="memberId" required="required">&nbsp;
+								<button type="button" id="btn" onclick="idCheck()">중복체크</button>
 							</td>
 						</tr>
 						<tr>
 							<th>비밀번호</th>
-							<td colspan="3"><input type="password" id="memberPassword"
-								name="memberPassword" required="required"></td>
+							<td colspan="3"><input type="password" id="memberPassword" name="memberPassword" required="required"></td>
 						</tr>
 						<tr>
 							<th>비밀번호 확인</th>
@@ -123,37 +121,37 @@ td {
 						</tr>
 						<tr>
 							<th>이름</th>
-							<td><input type="text" id="memberName" name="memberName"
-								required="required"></td>
+							<td><input type="text" id="memberName" name="memberName" required="required"></td>
 						</tr>
 						<tr>
 							<th>전화번호</th>
-							<td colspan="3"><input type="tel" id="memberTel"
-								name="memberTel"></td>
+							<td colspan="3"><input type="tel" id="memberTel" name="memberTel"></td>
 						</tr>
 					</table>
 				</div>
 				<br>
 				<div>
-					<input type="hidden" name="memberAuthor" value="USER"> <input
-						type="submit" value="등록">&nbsp;&nbsp; <input type="reset"
-						value="취소">&nbsp;&nbsp; <input type="button" value="목록"
-						onclick="location.href='memberSelectList.do'">
+					<input type="hidden" name="memberAuthor" value="USER">
+					<input type="submit" value="등록">&nbsp;&nbsp;
+					<input type="reset" value="취소">&nbsp;&nbsp;
+					<input type="button" value="목록" onclick="location.href='memberSelectList.do'">
 				</div>
 			</form>
 		</div>
 	</div>
 	<script type="text/javascript">
+		let rememberCheckedId = ''; 
+	
 		function formCheck() {
 			let pass1 = document.getElementById('memberPassword').value; // frm.memberpassword.value 랑 같음
 			let pass2 = document.getElementById('memberPasswordConfirm').value;
 			let idChecked = document.getElementById('btn').value;
 
-			// 아이디 중복체크여부 부터 확인시킴
-			if (idChecked == 'No') {
-				alert("아이디 중복 체크를 해주세요.");
+			// 아이디 중복 체크 후에 아이디를 바꿀 수도 있으니 한번 더 체크 후 안내
+			if (!doubleIdCheck()) {
 				return false;
 			}
+			
 
 			if (pass1 != pass2) {
 				alert("패스워드가 일치하지 않습니다.");
@@ -169,7 +167,15 @@ td {
 		// Ajax를 통해서 id 중복체크를 한다.
 		function idCheck() {
 			let id = document.getElementById('memberId').value;
-
+			
+			// 아이디 작성도 하지 않고 중복체크 누르면 다 사용가능하니까 막아주기
+			if (id.length == 0) {
+				alert('아이디를 작성해주세요.')
+				document.getElementById('memberId').focus();
+				return;
+			}
+			
+			
 			/* 교수님 XMLHttpRequest
 			const xhttp = new XMLHttpRequest();
 		    xhttp.onload = function() {
@@ -190,75 +196,44 @@ td {
 		    xhttp.send();
 		    */
 		    
-		 	// 교수님
-		    fetch('ajaxMemberIdCheck.do?id=' + id)
+			
+		    fetch('ajaxMemberIdCheck.do?memberId=' + id)
 		    .then(response => response.text())
 			.then(data => responseResult(data));  // 이 곳에 Call Back함수를 작성하면 됨.
 
 		    // fetch 처리 CallBack함수
 		    function responseResult(data) {
-		    	 if (data == '1') {
-						alert("사용 가능한 아이디 입니다.");
-						document.getElementById('btn').value = 'Yes';
-						document.getElementById('memberPassword').focus();
-		    	    } else {
-		    	    	alert("사용할 수 없는 아이디 입니다.");
-		    	    	document.getElementById('memberId').value = "";
-		    	    	document.getElementById('memberId').focus();
-		    	    } // 실패하면 callBack함수
-		    }
-			
-			
-			/*
-		    let xhttp = new XMLHttpRequest();
-		    xhttp.open('post', 'ajaxMemberIdCheck.do');
-		    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-		    xhttp.send('id=' + id);
-		    xhttp.onload = function (e) {
-		    	console.log('this: ' + this);
-		    	console.log('e: ' + e);
-		    	console.log(xhttp);
-
-		    	let result = xhttp.text();
-                console.log(result);
-                if (`${check}` == '1') {
-						alert("사용 가능한 아이디 입니다.");
-						document.getElementById('btn').value = 'Yes';
-						document.getElementById('memberPassword').focus();
-		    	} else {
-		    	    	alert("사용할 수 없는 아이디 입니다.");
-		    	    	document.getElementById('memberId').value = "";
-		    	    	document.getElementById('memberId').focus();
-		    	}
-            }
-		    */
-
-		    
-			/* 
-			fetch('ajaxMemberIdCheck.do', {
-					method: 'post',
-					headers: {
-						'Content-type': 'application/x-www-form-urlencoded'
-					},
-					body: 'id=' + id
-			})
-			.then(result => result.text())
-			.then(result => {
-				console.log(result);
-				if (result == '1') {
+				console.log('data = ' + data);
+				
+				if (data == '1') {
 					alert("사용 가능한 아이디 입니다.");
-					document.getElementById('btn').value = 'Yes';
+					// 중복체크를 합격한 아이디만 rememberCheckId에 따로 저장해둔다.
+					rememberCheckedId = document.getElementById('memberId').value;
 					document.getElementById('memberPassword').focus();
-				} else {
-					alert("사용할 수 없는 아이디 입니다.");
-					document.getElementById('memberId').value = "";
+		    	} else {
+	    	    	alert("사용할 수 없는 아이디 입니다.");
+	    	    	document.getElementById('memberId').value = "";
+	    	    	document.getElementById('memberId').focus();
+		    	} // 실패하면 callBack함수
+
+			}
+			
+		}
+		
+		// 등록 버튼 눌렀을 때 아이디 중복 더블 체크
+		function doubleIdCheck() {
+			
+			// 중복체크를 통해 통과되었던 아이디인 rememberCheckedId와 현재 적힌 아이디가 같은 때만 최종적으로 통과
+			if (rememberCheckedId == document.getElementById('memberId').value) {
+				return true;
+			// 중복체크를 통과한 적이 없거나
+			// 혹은 통과를 했더라도 rememberCheckedId와 현재 적힌 아이디가 다른 경우. 즉, 중복체크하고 나서 아이디 바꿔 적은 경우들은
+			// 무조건 아이디 중복체크를 거치게 만들기.
+			} else {
+					alert("아이디 중복 체크를 해주세요.");
 					document.getElementById('memberId').focus();
-				}
-			})
-			.catch(error => console.error(error));
-		    */
-		    
-		    
+					return false;
+			}
 		}
 	</script>
 </body>
