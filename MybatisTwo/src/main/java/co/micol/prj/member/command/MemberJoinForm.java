@@ -1,4 +1,4 @@
-package co.micol.prj.command;
+package co.micol.prj.member.command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

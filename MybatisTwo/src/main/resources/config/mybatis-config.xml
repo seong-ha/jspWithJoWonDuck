@@ -20,6 +20,6 @@
 		</environment>
 	</environments>
 	<mappers>
-		<package name="co.micol.prj.mybatis.mapper" />
+		<package name="co/micol/prj/mybatis/mapper" />
 	</mappers>
 </configuration>

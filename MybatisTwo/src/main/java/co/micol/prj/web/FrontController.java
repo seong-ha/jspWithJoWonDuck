@@ -12,14 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import co.micol.prj.Main;
-import co.micol.prj.command.AjaxMemberIdCheck;
-import co.micol.prj.command.MemberDelete;
-import co.micol.prj.command.MemberInsert;
-import co.micol.prj.command.MemberJoinForm;
-import co.micol.prj.command.MemberSelect;
-import co.micol.prj.command.MemberUpdate;
 import co.micol.prj.common.Command;
+import co.micol.prj.member.command.AjaxMemberIdCheck;
+import co.micol.prj.member.command.MemberDelete;
+import co.micol.prj.member.command.MemberInsert;
+import co.micol.prj.member.command.MemberJoinForm;
+import co.micol.prj.member.command.MemberSelect;
 import co.micol.prj.member.command.MemberSelectList;
+import co.micol.prj.member.command.MemberUpdate;
 
 @WebServlet("*.do")
 public class FrontController extends HttpServlet {
