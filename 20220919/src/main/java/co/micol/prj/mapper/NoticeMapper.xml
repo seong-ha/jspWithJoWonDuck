@@ -9,7 +9,7 @@
 		SELECT * FROM NOTICE WHERE NOTICE_ID = #{noticeId}
 	</select>
 
-	<!-- db에서 제공하는 sequence를 써도 되고 mybatis에서 제공하는 -->
+	<!-- db에서 제공하는 sequence를 써도 되고 mybatis에서 제공하는 거 써도 되고-->
 	<insert id="noticeInsert" parameterType="co.micol.prj.notice.service.NoticeVO">
 		<selectKey keyProperty="noticeId" resultType="int" order="BEFORE">
 			SELECT CASE WHEN MAX(NOTICE_ID) IS NULL THEN 1 ELSE

@@ -8,7 +8,7 @@
 </head>
 <body>
 	<div align="center">
-		<div><jsp:include page="../menu/menu.jsp" /></div>
+		<div align="center"><jsp:include page="../menu/menu.jsp" /></div>
 		<div><h1>Welcome to My Website</h1></div>
 		<div>
 			<img alt="asdfasdf" src="img/image.png">

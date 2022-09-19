@@ -1,7 +1,15 @@
 #topMenu {
 	height: 50px;
+	line-height: 50px;
 	width: 100%;
 	background-color: #2d2d2d;
+	margin-bottom: 30px;
+}
+
+#topMenu ul {
+	width: 100%;
+	margin: 0 23%;
+	padding: 10px 0;
 }
 
 #topMenu ul li {
@@ -18,7 +26,7 @@
 	color: white;
 	display: block;
 	width: 150px;
-	font-size: 12px;
+	font-size: 20px;
 	font-weight: bold;
 	font-family: "Trebuchet MS", Dotum, Arial;
 }

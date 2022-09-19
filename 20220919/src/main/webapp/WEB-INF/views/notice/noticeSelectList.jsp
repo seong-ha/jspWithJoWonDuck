@@ -39,7 +39,7 @@ td {
 					<c:if test="${not empty list}">
 						<c:forEach items="${list}" var="notice">
 							<tr onMouseover="this.style.backgroundColor='yellow';"
-								onMouseout="this.style.backgroundColor='pink';"
+								onMouseout="this.style.backgroundColor='white';"
 								onclick="selectNotice('${notice.noticeId}')">
 								<td>${notice.noticeId}</td>
 								<td>${notice.noticeTitle}</td>
