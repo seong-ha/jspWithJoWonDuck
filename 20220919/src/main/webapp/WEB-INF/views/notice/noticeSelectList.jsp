@@ -6,15 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-td {
-	text-align: center;
-}
-</style>
 </head>
 <body>
 	<div align="center">
-		<div><jsp:include page="../menu/menu.jsp" /></div>
 		<div>
 			<h1>게시글 목록</h1>
 		</div>

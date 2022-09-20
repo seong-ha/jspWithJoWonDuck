@@ -4,6 +4,21 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	id="WebApp_ID" version="3.1">
 
+	<!-- tiles container를 로드할때 타일즈 쓸거라고 tomcat한테 알려주는거 -->
+	<listener>
+		<listener-class>org.apache.tiles.extras.complete.CompleteAutoloadTilesListener</listener-class>
+	</listener>
+
+	<!-- *.tiles라고 요청이 오면 저 서블릿으로 가게 url-mapping함 -->
+	<servlet>
+		<servlet-name>Tiles</servlet-name>
+		<servlet-class>org.apache.tiles.web.util.TilesDispatchServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Tiles</servlet-name>
+		<url-pattern>*.tiles</url-pattern>
+	</servlet-mapping>
+
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>

@@ -16,6 +16,9 @@ import co.micol.prj.common.Command;
 import co.micol.prj.member.command.MemberLogin;
 import co.micol.prj.member.command.MemberLoginForm;
 import co.micol.prj.member.command.MemberLogout;
+import co.micol.prj.notice.command.NoticeDelete;
+import co.micol.prj.notice.command.NoticeEdit;
+import co.micol.prj.notice.command.NoticeEditForm;
 import co.micol.prj.notice.command.NoticeInsert;
 import co.micol.prj.notice.command.NoticeSelect;
 import co.micol.prj.notice.command.NoticeSelectList;
@@ -36,6 +39,9 @@ public class FrontController extends HttpServlet {
 		map.put("/noticeWriteForm.do", new NoticeWriteForm());
 		map.put("/noticeInsert.do", new NoticeInsert());
 		map.put("/noticeSelect.do", new NoticeSelect()); // 공지사항 상세보기
+		map.put("/noticeEditForm.do", new NoticeEditForm()); // 상세보기에서 게시글 수정 폼으로
+		map.put("/noticeEdit.do", new NoticeEdit()); // 상세보기에서 게시글 수정
+		map.put("/noticeDelete.do", new NoticeDelete()); // 상세보기에서 게시글 삭제
 		map.put("/memberLoginForm.do", new MemberLoginForm());
 		map.put("/memberLogin.do", new MemberLogin()); // 로그인 처리
 		map.put("/memberLogout.do", new MemberLogout()); // 로그아웃 처리
@@ -53,17 +59,23 @@ public class FrontController extends HttpServlet {
 		
 		if (!viewPage.endsWith(".do")) {
 			
-			if (viewPage.startsWith("ajax:")) {
+			if (viewPage.startsWith("ajax:")) { // ajax를 사용할때 
 				response.setContentType("text/html; charset=UTF-8");
 				response.getWriter().append(viewPage.substring(5));
 				return;
 			} else {
-				viewPage = "/WEB-INF/views/" + viewPage + ".jsp";
+				// tiles 적용 안 태울때
+				if (viewPage .startsWith("no:")) {
+					viewPage = "/WEB-INF/views/" + viewPage.substring(3) + ".jsp";
+				} else { // tiles  적용태울때
+					viewPage = viewPage + ".tiles";  // tiles layout 사용
+				}
+				
 				RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 				dispatcher.forward(request, response);
 			}
 		} else {
-			response.sendRedirect(viewPage);
+			response.sendRedirect(viewPage); // .do return
 		}
 	}
 
