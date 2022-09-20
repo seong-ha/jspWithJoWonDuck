@@ -41,7 +41,7 @@
 						<tr>
 							<th>첨부파일</th>
 							<td colspan="5">
-								<input type="file" id="noticeAttech" name="noticeAttech" value="${vo.noticeAttech}">
+								<input type="file" id="file" name="file" value="${vo.noticeAttech}">
 							</td>
 						</tr>
 					</table>
